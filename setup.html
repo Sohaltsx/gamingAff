@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Streaming Setup | SOHAL</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<nav class="site-nav">
+  <a class="nav-logo" href="index.html">SO<span>HAL</span></a>
+  <div class="nav-links">
+    <a class="nav-link" href="index.html">Gear</a>
+    <a class="nav-link active" href="setup.html">Setup</a>
+  </div>
+</nav>
+
+<header class="page-hero">
+  <div class="page-hero-tag">Signal Flow Diagram</div>
+  <h1 class="page-hero-title">Streaming Rig</h1>
+  <p class="page-hero-sub">Full breakdown of how every device connects — from gaming source to live stream.</p>
+</header>
+
+<section class="rig-section">
+  <div class="rig-label">Live Diagram</div>
+
+  <div class="rig-wrap">
+    <div class="rig-diagram">
+
+      <!-- SVG connection lines -->
+      <svg class="rig-svg" viewBox="0 0 900 460" preserveAspectRatio="xMidYMid meet">
+        <defs>
+          <marker id="arr-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0,1 L9,5 L0,9 Z" fill="rgba(230,0,0,0.8)"/>
+          </marker>
+          <marker id="arr-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0,1 L9,5 L0,9 Z" fill="rgba(74,222,128,0.8)"/>
+          </marker>
+          <marker id="arr-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0,1 L9,5 L0,9 Z" fill="rgba(96,165,250,0.8)"/>
+          </marker>
+        </defs>
+
+        <!-- iPhone → MacBook (webcam feed, dashed) -->
+        <path d="M170,95 C270,95 290,200 360,210"
+          stroke="rgba(230,0,0,0.6)" stroke-width="1.5" fill="none"
+          stroke-dasharray="6,3" marker-end="url(#arr-red)"/>
+
+        <!-- PS5/PC → MacBook (capture card, solid) -->
+        <path d="M170,315 C270,315 290,230 360,220"
+          stroke="rgba(230,0,0,0.8)" stroke-width="2" fill="none"
+          marker-end="url(#arr-red)"/>
+
+        <!-- MacBook → Monitor 1 (display out, green) -->
+        <path d="M545,205 C630,205 640,100 720,95"
+          stroke="rgba(74,222,128,0.7)" stroke-width="1.5" fill="none"
+          marker-end="url(#arr-green)"/>
+
+        <!-- MacBook → Stream (RTMP out, blue) -->
+        <path d="M545,225 C640,225 645,310 720,315"
+          stroke="rgba(96,165,250,0.7)" stroke-width="1.5" fill="none"
+          marker-end="url(#arr-blue)"/>
+
+        <!-- PS5/PC → Monitor 2 (direct HDMI, green) -->
+        <path d="M95,360 L95,395 C95,410 160,415 200,415"
+          stroke="rgba(74,222,128,0.6)" stroke-width="1.5" fill="none"
+          marker-end="url(#arr-green)"/>
+
+        <!-- Connection labels -->
+        <text x="220" y="68" fill="rgba(230,0,0,0.6)" font-size="10" font-family="DM Sans" letter-spacing="1">WEBCAM</text>
+        <text x="218" y="278" fill="rgba(230,0,0,0.7)" font-size="10" font-family="DM Sans" letter-spacing="1">HDMI CAPTURE</text>
+        <text x="606" y="168" fill="rgba(74,222,128,0.7)" font-size="10" font-family="DM Sans" letter-spacing="1">HDMI</text>
+        <text x="606" y="278" fill="rgba(96,165,250,0.7)" font-size="10" font-family="DM Sans" letter-spacing="1">RTMP</text>
+        <text x="110" y="408" fill="rgba(74,222,128,0.6)" font-size="10" font-family="DM Sans" letter-spacing="1">HDMI</text>
+      </svg>
+
+      <!-- iPhone (webcam) -->
+      <div class="rig-node" style="left:20px;top:55px;width:150px;height:80px;">
+        <div class="node-icon">📱</div>
+        <div class="node-name">iPhone</div>
+        <div class="node-sub">Webcam Source</div>
+        <div class="node-badge badge-red">Continuity Cam</div>
+      </div>
+
+      <!-- PS5 / PC -->
+      <div class="rig-node" style="left:20px;top:275px;width:150px;height:90px;">
+        <div class="node-icon">🎮</div>
+        <div class="node-name">PS5 / PC</div>
+        <div class="node-sub">Gaming Source</div>
+        <div class="node-badge badge-red">Capture Card Out</div>
+      </div>
+
+      <!-- Monitor 2 -->
+      <div class="rig-node output" style="left:200px;top:390px;width:160px;height:70px;">
+        <div class="node-icon">🖥️</div>
+        <div class="node-name">Monitor 2</div>
+        <div class="node-sub">Gaming Display</div>
+      </div>
+
+      <!-- MacBook (hub) -->
+      <div class="rig-node hub" style="left:360px;top:160px;width:185px;height:115px;">
+        <div class="node-icon">💻</div>
+        <div class="node-name">MacBook Pro</div>
+        <div class="node-sub">OBS Studio</div>
+        <div class="node-badge badge-red">Streaming Engine</div>
+      </div>
+
+      <!-- Monitor 1 -->
+      <div class="rig-node output" style="left:720px;top:55px;width:160px;height:80px;">
+        <div class="node-icon">🖥️</div>
+        <div class="node-name">Monitor 1</div>
+        <div class="node-sub">MacBook Display</div>
+      </div>
+
+      <!-- Stream output -->
+      <div class="rig-node stream-out" style="left:720px;top:275px;width:160px;height:80px;">
+        <div class="node-icon">📺</div>
+        <div class="node-name">Live Stream</div>
+        <div class="node-sub">YouTube / Twitch</div>
+        <div class="node-badge badge-blue">RTMP Out</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Device spec cards -->
+<div class="rig-label" style="max-width:960px;margin:2.5rem auto 0;padding:0 1.25rem">Device Breakdown</div>
+<div class="devices-grid">
+
+  <div class="device-card" style="--accent:#e60000">
+    <div class="device-card-icon">💻</div>
+    <div class="device-card-name">MacBook Pro</div>
+    <div class="device-card-role" style="color:var(--red)">Streaming Hub</div>
+    <ul class="device-card-specs">
+      <li>Runs OBS Studio for scene management</li>
+      <li>Handles encoding &amp; stream output (RTMP)</li>
+      <li>Receives iPhone webcam via Continuity Camera</li>
+      <li>Receives gaming feed via HDMI capture card</li>
+      <li>Drives Monitor 1 over HDMI</li>
+    </ul>
+  </div>
+
+  <div class="device-card" style="--accent:#e60000">
+    <div class="device-card-icon">📱</div>
+    <div class="device-card-name">iPhone</div>
+    <div class="device-card-role" style="color:var(--red)">Webcam Source</div>
+    <ul class="device-card-specs">
+      <li>Used as high-quality webcam in OBS</li>
+      <li>Connected via Apple Continuity Camera (USB or wireless)</li>
+      <li>Appears as a camera source in OBS scene</li>
+    </ul>
+  </div>
+
+  <div class="device-card" style="--accent:#e60000">
+    <div class="device-card-icon">🎮</div>
+    <div class="device-card-name">PS5 / PC</div>
+    <div class="device-card-role" style="color:var(--red)">Gaming Source</div>
+    <ul class="device-card-specs">
+      <li>Primary gaming output (PS5 or Windows PC)</li>
+      <li>HDMI → Capture Card → MacBook (OBS)</li>
+      <li>Second HDMI → Monitor 2 (direct gameplay view)</li>
+    </ul>
+  </div>
+
+  <div class="device-card" style="--accent:#4ade80">
+    <div class="device-card-icon">🖥️</div>
+    <div class="device-card-name">Monitor 1</div>
+    <div class="device-card-role" style="color:#4ade80">Mac Display</div>
+    <ul class="device-card-specs">
+      <li>Connected to MacBook via HDMI</li>
+      <li>Shows OBS, stream dashboard, chat</li>
+      <li>Primary working / streaming control monitor</li>
+    </ul>
+  </div>
+
+  <div class="device-card" style="--accent:#4ade80">
+    <div class="device-card-icon">🖥️</div>
+    <div class="device-card-name">Monitor 2</div>
+    <div class="device-card-role" style="color:#4ade80">Gaming Display</div>
+    <ul class="device-card-specs">
+      <li>Connected directly to PS5 / PC via HDMI</li>
+      <li>Shows the game in full quality (no capture lag)</li>
+      <li>Primary view while gaming live</li>
+    </ul>
+  </div>
+
+  <div class="device-card" style="--accent:#60a5fa">
+    <div class="device-card-icon">📺</div>
+    <div class="device-card-name">Live Stream</div>
+    <div class="device-card-role" style="color:#60a5fa">Stream Output</div>
+    <ul class="device-card-specs">
+      <li>OBS pushes RTMP stream to YouTube / Twitch</li>
+      <li>Combines webcam + game capture + audio</li>
+      <li>Encoded on MacBook before going out</li>
+    </ul>
+  </div>
+
+</div>
+
+<footer style="position:relative;z-index:1">
+  Made with <span>♥</span> by <span>SOHAL</span>
+</footer>
+
+</body>
+</html>
