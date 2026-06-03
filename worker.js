@@ -1,8 +1,15 @@
 addEventListener('fetch', event => {
-  event.respondWith(handleRequest(event.request))
+  event.respondWith(handleRequest(event))
 })
 
-async function handleRequest(request) {
+function resizeAmazonImage(url, size = 300) {
+  if (!url) return url
+  // Amazon CDN supports size suffixes: insert ._SLxxx_. before the extension
+  return url.replace(/\.(jpg|png|webp)(\?.*)?$/i, `._SL${size}_.$1`)
+}
+
+async function handleRequest(event) {
+  const request = event.request
   const url = new URL(request.url)
   const targetUrl = url.searchParams.get('url')
 
@@ -15,6 +22,12 @@ async function handleRequest(request) {
   if (!targetUrl) {
     return new Response(JSON.stringify({ error: 'No url param' }), { headers: cors })
   }
+
+  // Check Cloudflare cache first
+  const cache = caches.default
+  const cacheKey = new Request(request.url)
+  const cached = await cache.match(cacheKey)
+  if (cached) return cached
 
   try {
     const res = await fetch(targetUrl, {
@@ -50,10 +63,23 @@ async function handleRequest(request) {
       image = `https://images-na.ssl-images-amazon.com/images/P/${asin}.jpg`
     }
 
+    image = resizeAmazonImage(image, 300)
+
     const titleMatch = html.match(/<title>([^<]+)<\/title>/)
     const title = titleMatch ? titleMatch[1].trim() : null
 
-    return new Response(JSON.stringify({ image, asin, title, finalUrl }), { headers: cors })
+    const payload = JSON.stringify({ image, asin, title, finalUrl })
+    const response = new Response(payload, {
+      headers: {
+        ...cors,
+        'Cache-Control': 'public, max-age=86400', // cache for 24 hours
+      },
+    })
+
+    // Store in Cloudflare edge cache
+    event.waitUntil(cache.put(cacheKey, response.clone()))
+
+    return response
 
   } catch (err) {
     return new Response(JSON.stringify({ error: err.message }), {
