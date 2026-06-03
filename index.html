@@ -887,8 +887,10 @@ if (document.readyState === 'loading') {
   loadProductImages();
 }
 
-// Collapsible sections
+// Collapsible sections — collapsed by default
 document.querySelectorAll('.section-header').forEach(header => {
+  header.classList.add('collapsed')
+  header.nextElementSibling.classList.add('collapsed')
   header.addEventListener('click', () => {
     const grid = header.nextElementSibling
     header.classList.toggle('collapsed')
