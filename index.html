@@ -52,6 +52,7 @@
     <div class="section-icon">💻</div>
     <div class="section-title">PC & Laptops</div>
     <div class="section-line"></div>
+    <span class="section-chevron">&#9660;</span>
   </div>
   <div class="gear-grid">
     <div class="card" id="card-macbook-pro-m2" data-link="https://amzn.to/4uJzNrO">
@@ -92,6 +93,7 @@
     <div class="section-icon">🎮</div>
     <div class="section-title">Gaming</div>
     <div class="section-line"></div>
+    <span class="section-chevron">&#9660;</span>
   </div>
   <div class="gear-grid">
     <div class="card" id="card-ps5-slim-digital" >
@@ -132,6 +134,7 @@
     <div class="section-icon">🖥️</div>
     <div class="section-title">Monitors & Displays</div>
     <div class="section-line"></div>
+    <span class="section-chevron">&#9660;</span>
   </div>
   <div class="gear-grid">
     <div class="card" id="card-viewsonic-2k-main-monitor" data-link="https://amzn.to/4viz3tg">
@@ -172,6 +175,7 @@
     <div class="section-icon">📹</div>
     <div class="section-title">Streaming Gear</div>
     <div class="section-line"></div>
+    <span class="section-chevron">&#9660;</span>
   </div>
   <div class="gear-grid">
     <div class="card" id="card-elgato-4k-x-capture-card" data-link="https://amzn.to/4o4avlB">
@@ -228,6 +232,7 @@
     <div class="section-icon">🎙️</div>
     <div class="section-title">Audio</div>
     <div class="section-line"></div>
+    <span class="section-chevron">&#9660;</span>
   </div>
   <div class="gear-grid">
     <div class="card" id="card-fifine-microphone" data-link="https://amzn.to/49z7P9x">
@@ -268,6 +273,7 @@
     <div class="section-icon">⌨️</div>
     <div class="section-title">Peripherals</div>
     <div class="section-line"></div>
+    <span class="section-chevron">&#9660;</span>
   </div>
   <div class="gear-grid">
     <div class="card" id="card-logitech-g214-keyboard" data-link="https://amzn.to/3QgUr3n">
@@ -340,6 +346,7 @@
     <div class="section-icon">💡</div>
     <div class="section-title">Lighting</div>
     <div class="section-line"></div>
+    <span class="section-chevron">&#9660;</span>
   </div>
   <div class="gear-grid">
     <div class="card" id="card-slab-light" data-link="https://amzn.to/4xguP7A">
@@ -396,6 +403,7 @@
     <div class="section-icon">🪑</div>
     <div class="section-title">Desk & Chair</div>
     <div class="section-line"></div>
+    <span class="section-chevron">&#9660;</span>
   </div>
   <div class="gear-grid">
     <div class="card" id="card-gaming-chair-–-green-soul" data-link="https://amzn.to/3Sc6Oyc">
@@ -468,6 +476,7 @@
     <div class="section-icon">📦</div>
     <div class="section-title">Cable Management</div>
     <div class="section-line"></div>
+    <span class="section-chevron">&#9660;</span>
   </div>
   <div class="gear-grid">
     <div class="card" id="card-cable-management-box" data-link="https://amzn.to/49zHaJP">
@@ -540,6 +549,7 @@
     <div class="section-icon">🧳</div>
     <div class="section-title">Accessories</div>
     <div class="section-line"></div>
+    <span class="section-chevron">&#9660;</span>
   </div>
   <div class="gear-grid">
     <div class="card" id="card-wifi-power-backup" data-link="https://amzn.to/4fdyPPz">
@@ -868,6 +878,15 @@ if (document.readyState === 'loading') {
 } else {
   loadProductImages();
 }
+
+// Collapsible sections
+document.querySelectorAll('.section-header').forEach(header => {
+  header.addEventListener('click', () => {
+    const grid = header.nextElementSibling
+    header.classList.toggle('collapsed')
+    grid.classList.toggle('collapsed')
+  })
+})
 </script>
 
 </body>
