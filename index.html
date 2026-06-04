@@ -28,11 +28,11 @@
     <h1 class="hero-name">SO<span>HAL</span></h1>
     <p class="hero-tagline">Gaming <span>•</span> Streaming <span>•</span> Entertainment</p>
     <div class="hero-buttons">
-      <a class="btn btn-yt" href="YOUR_YOUTUBE_LINK" target="_blank" rel="noopener">
+      <a class="btn btn-yt" href="https://www.youtube.com/@Sohal007" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.6 5.8a3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.7 15.5V8.5l6.3 3.5-6.3 3.5z"/></svg>
         YouTube
       </a>
-      <a class="btn btn-discord" href="YOUR_DISCORD_LINK" target="_blank" rel="noopener">
+      <a class="btn btn-discord" href="https://discord.gg/2vF4VBZj4x" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor"><path d="M20.3 4.4A19.8 19.8 0 0 0 15.4 3c-.2.4-.5.9-.6 1.3a18.4 18.4 0 0 0-5.5 0C9.1 3.9 8.8 3.4 8.6 3A19.7 19.7 0 0 0 3.7 4.4C.5 9.2-.3 13.9.1 18.5a20 20 0 0 0 6.1 3.1c.5-.7.9-1.4 1.3-2.2a13 13 0 0 1-2-1l.5-.4a14.3 14.3 0 0 0 12 0l.5.4a13 13 0 0 1-2 1c.4.8.8 1.5 1.3 2.2a19.9 19.9 0 0 0 6-3.1c.5-5.3-.9-9.9-3.5-14.1zM8 15.6c-1.2 0-2.2-1.1-2.2-2.5S6.8 10.6 8 10.6s2.2 1.1 2.2 2.5-1 2.5-2.2 2.5zm8 0c-1.2 0-2.2-1.1-2.2-2.5s1-2.5 2.2-2.5 2.2 1.1 2.2 2.5-1 2.5-2.2 2.5z"/></svg>
         Discord
       </a>
@@ -764,12 +764,25 @@ function extractOgImage(html) {
     /property="og:image"\s+content="([^"]+)"/,
     /content="([^"]+)"\s+property="og:image"/,
     /name="twitter:image"\s+content="([^"]+)"/,
+    /data-old-hires="(https:\/\/[^"]+\.(?:jpg|png|webp))"/,
+    /"hiRes"\s*:\s*"(https:\/\/m\.media-amazon\.com\/images\/I\/[^"]+\.(?:jpg|png|webp))"/,
+    /"large"\s*:\s*"(https:\/\/m\.media-amazon\.com\/images\/I\/[^"]+\.(?:jpg|png|webp))"/,
     /https:\/\/m\.media-amazon\.com\/images\/I\/[^"'\s]+\.jpg/,
     /https:\/\/images-na\.ssl-images-amazon\.com\/images\/I\/[^"'\s]+\.jpg/,
   ];
   for (const pat of patterns) {
     const m = html.match(pat);
     if (m) return m[1] || m[0];
+  }
+  // Try data-a-dynamic-image (HTML-encoded JSON map of image URLs)
+  const dynMatch = html.match(/data-a-dynamic-image="([^"]+)"/);
+  if (dynMatch) {
+    try {
+      const decoded = dynMatch[1].replace(/&quot;/g, '"');
+      const imgMap = JSON.parse(decoded);
+      const firstUrl = Object.keys(imgMap)[0];
+      if (firstUrl) return firstUrl;
+    } catch(e) {}
   }
   return null;
 }

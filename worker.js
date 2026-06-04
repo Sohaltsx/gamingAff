@@ -4,7 +4,8 @@ addEventListener('fetch', event => {
 
 function resizeAmazonImage(url, size = 300) {
   if (!url) return url
-  // Amazon CDN supports size suffixes: insert ._SLxxx_. before the extension
+  // Only images/I/ CDN URLs support size modifiers; images/P/ does not
+  if (!url.includes('/images/I/')) return url
   return url.replace(/\.(jpg|png|webp)(\?.*)?$/i, `._SL${size}_.$1`)
 }
 
@@ -47,14 +48,32 @@ async function handleRequest(event) {
     const ogMatch = html.match(/property="og:image"\s+content="([^"]+)"/)
     const ogMatch2 = html.match(/content="([^"]+)"\s+property="og:image"/)
     const twitterMatch = html.match(/name="twitter:image"\s+content="([^"]+)"/)
+    const hiResMatch = html.match(/"hiRes"\s*:\s*"(https:\/\/m\.media-amazon\.com\/images\/I\/[^"]+\.(?:jpg|png|webp))"/)
+    const largeMatch = html.match(/"large"\s*:\s*"(https:\/\/m\.media-amazon\.com\/images\/I\/[^"]+\.(?:jpg|png|webp))"/)
+    const dataHiRes = html.match(/data-old-hires="(https:\/\/[^"]+\.(?:jpg|png|webp))"/)
     const amazonImg = html.match(/https:\/\/m\.media-amazon\.com\/images\/I\/[A-Za-z0-9%+._-]+\.(?:jpg|png|webp)/)
     const amazonImg2 = html.match(/https:\/\/images-na\.ssl-images-amazon\.com\/images\/I\/[A-Za-z0-9%+._-]+\.(?:jpg|png|webp)/)
 
     if (ogMatch) image = ogMatch[1]
     else if (ogMatch2) image = ogMatch2[1]
     else if (twitterMatch) image = twitterMatch[1]
+    else if (hiResMatch) image = hiResMatch[1]
+    else if (largeMatch) image = largeMatch[1]
+    else if (dataHiRes) image = dataHiRes[1]
     else if (amazonImg) image = amazonImg[0]
     else if (amazonImg2) image = amazonImg2[0]
+
+    // Try data-a-dynamic-image (HTML-encoded JSON map of image URLs → sizes)
+    if (!image) {
+      const dynMatch = html.match(/data-a-dynamic-image="([^"]+)"/)
+      if (dynMatch) {
+        try {
+          const decoded = dynMatch[1].replace(/&quot;/g, '"')
+          const imgMap = JSON.parse(decoded)
+          image = Object.keys(imgMap)[0] || null
+        } catch(e) {}
+      }
+    }
 
     const asinMatch = finalUrl.match(/\/dp\/([A-Z0-9]{10})/)
     const asin = asinMatch ? asinMatch[1] : null

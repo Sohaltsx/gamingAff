@@ -49,8 +49,13 @@
           stroke="rgba(230,0,0,0.6)" stroke-width="1.5" fill="none"
           stroke-dasharray="6,3" marker-end="url(#arr-red)"/>
 
-        <!-- PS5/PC → MacBook (capture card, solid) -->
-        <path d="M170,315 C270,315 290,230 360,220"
+        <!-- PS5/PC → Elgato (HDMI out) -->
+        <path d="M170,320 C183,320 190,288 195,288"
+          stroke="rgba(230,0,0,0.8)" stroke-width="2" fill="none"
+          marker-end="url(#arr-red)"/>
+
+        <!-- Elgato → MacBook (USB-C capture) -->
+        <path d="M350,288 C358,288 360,240 360,218"
           stroke="rgba(230,0,0,0.8)" stroke-width="2" fill="none"
           marker-end="url(#arr-red)"/>
 
@@ -71,7 +76,8 @@
 
         <!-- Connection labels -->
         <text x="220" y="68" fill="rgba(230,0,0,0.6)" font-size="10" font-family="DM Sans" letter-spacing="1">WEBCAM</text>
-        <text x="218" y="278" fill="rgba(230,0,0,0.7)" font-size="10" font-family="DM Sans" letter-spacing="1">HDMI CAPTURE</text>
+        <text x="170" y="272" fill="rgba(230,0,0,0.7)" font-size="10" font-family="DM Sans" letter-spacing="1">HDMI</text>
+        <text x="351" y="262" fill="rgba(230,0,0,0.7)" font-size="10" font-family="DM Sans" letter-spacing="1">USB-C</text>
         <text x="606" y="168" fill="rgba(74,222,128,0.7)" font-size="10" font-family="DM Sans" letter-spacing="1">HDMI</text>
         <text x="606" y="278" fill="rgba(96,165,250,0.7)" font-size="10" font-family="DM Sans" letter-spacing="1">RTMP</text>
         <text x="110" y="408" fill="rgba(74,222,128,0.6)" font-size="10" font-family="DM Sans" letter-spacing="1">HDMI</text>
@@ -90,7 +96,7 @@
         <div class="node-icon">🎮</div>
         <div class="node-name">PS5 / PC</div>
         <div class="node-sub">Gaming Source</div>
-        <div class="node-badge badge-red">Capture Card Out</div>
+        <div class="node-badge badge-red">HDMI Out</div>
       </div>
 
       <!-- Monitor 2 -->
@@ -98,6 +104,14 @@
         <div class="node-icon">🖥️</div>
         <div class="node-name">Monitor 2</div>
         <div class="node-sub">Gaming Display</div>
+      </div>
+
+      <!-- Elgato 4K X (capture card) -->
+      <div class="rig-node" style="left:195px;top:245px;width:155px;height:85px;">
+        <div class="node-icon">📹</div>
+        <div class="node-name">Elgato 4K X</div>
+        <div class="node-sub">Capture Card</div>
+        <div class="node-badge badge-red">4K Passthrough</div>
       </div>
 
       <!-- MacBook (hub) -->
@@ -163,6 +177,18 @@
       <li>Primary gaming output (PS5 or Windows PC)</li>
       <li>HDMI → Capture Card → MacBook (OBS)</li>
       <li>Second HDMI → Monitor 2 (direct gameplay view)</li>
+    </ul>
+  </div>
+
+  <div class="device-card" style="--accent:#e60000">
+    <div class="device-card-icon">📹</div>
+    <div class="device-card-name">Elgato 4K X</div>
+    <div class="device-card-role" style="color:var(--red)">Capture Card</div>
+    <ul class="device-card-specs">
+      <li>Receives PS5 / PC footage over HDMI</li>
+      <li>4K passthrough — zero-lag gameplay on Monitor 2</li>
+      <li>Feeds captured video into MacBook via USB-C</li>
+      <li>OBS reads it as a video capture source</li>
     </ul>
   </div>
 
