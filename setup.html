@@ -27,11 +27,12 @@
 <section class="rig-section">
   <div class="rig-label">Live Diagram</div>
 
+  <p class="rig-scroll-hint">← scroll to see full diagram →</p>
   <div class="rig-wrap">
     <div class="rig-diagram">
 
       <!-- SVG connection lines -->
-      <svg class="rig-svg" viewBox="0 0 900 460" preserveAspectRatio="xMidYMid meet">
+      <svg class="rig-svg" viewBox="0 0 900 500" preserveAspectRatio="xMidYMid meet">
         <defs>
           <marker id="arr-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
             <path d="M0,1 L9,5 L0,9 Z" fill="rgba(230,0,0,0.8)"/>
@@ -44,47 +45,47 @@
           </marker>
         </defs>
 
-        <!-- iPhone → MacBook (webcam feed, dashed) -->
-        <path d="M170,95 C270,95 290,200 360,210"
+        <!-- iPhone (right:170,80) → MacBook (left:360,207) webcam, dashed -->
+        <path d="M170,80 C265,80 290,207 360,207"
           stroke="rgba(230,0,0,0.6)" stroke-width="1.5" fill="none"
           stroke-dasharray="6,3" marker-end="url(#arr-red)"/>
 
-        <!-- PS5/PC → Elgato (HDMI out) -->
-        <path d="M170,320 C183,320 190,288 195,288"
+        <!-- PS5/PC (right:170,325) → Elgato (left:360,340) HDMI -->
+        <path d="M170,325 C265,325 290,340 360,340"
           stroke="rgba(230,0,0,0.8)" stroke-width="2" fill="none"
           marker-end="url(#arr-red)"/>
 
-        <!-- Elgato → MacBook (USB-C capture) -->
-        <path d="M350,288 C358,288 360,240 360,218"
+        <!-- Elgato (top:437,300) → MacBook (bottom:452,265) USB-C up -->
+        <path d="M437,300 C437,280 452,280 452,265"
           stroke="rgba(230,0,0,0.8)" stroke-width="2" fill="none"
           marker-end="url(#arr-red)"/>
 
-        <!-- MacBook → Monitor 1 (display out, green) -->
-        <path d="M545,205 C630,205 640,100 720,95"
+        <!-- MacBook (right:545,207) → Monitor 1 (left:720,95) HDMI -->
+        <path d="M545,207 C635,207 645,95 720,95"
           stroke="rgba(74,222,128,0.7)" stroke-width="1.5" fill="none"
           marker-end="url(#arr-green)"/>
 
-        <!-- MacBook → Stream (RTMP out, blue) -->
-        <path d="M545,225 C640,225 645,310 720,315"
+        <!-- MacBook (right:545,225) → Stream (left:720,315) RTMP -->
+        <path d="M545,225 C640,225 645,315 720,315"
           stroke="rgba(96,165,250,0.7)" stroke-width="1.5" fill="none"
           marker-end="url(#arr-blue)"/>
 
-        <!-- PS5/PC → Monitor 2 (direct HDMI, green) -->
-        <path d="M95,360 L95,395 C95,410 160,415 200,415"
+        <!-- PS5/PC (bottom:95,370) → Monitor 2 (top:100,415) HDMI -->
+        <path d="M95,370 L100,415"
           stroke="rgba(74,222,128,0.6)" stroke-width="1.5" fill="none"
           marker-end="url(#arr-green)"/>
 
         <!-- Connection labels -->
-        <text x="220" y="68" fill="rgba(230,0,0,0.6)" font-size="10" font-family="DM Sans" letter-spacing="1">WEBCAM</text>
-        <text x="170" y="272" fill="rgba(230,0,0,0.7)" font-size="10" font-family="DM Sans" letter-spacing="1">HDMI</text>
-        <text x="351" y="262" fill="rgba(230,0,0,0.7)" font-size="10" font-family="DM Sans" letter-spacing="1">USB-C</text>
-        <text x="606" y="168" fill="rgba(74,222,128,0.7)" font-size="10" font-family="DM Sans" letter-spacing="1">HDMI</text>
-        <text x="606" y="278" fill="rgba(96,165,250,0.7)" font-size="10" font-family="DM Sans" letter-spacing="1">RTMP</text>
-        <text x="110" y="408" fill="rgba(74,222,128,0.6)" font-size="10" font-family="DM Sans" letter-spacing="1">HDMI</text>
+        <text x="200" y="63" fill="rgba(230,0,0,0.6)" font-size="10" font-family="DM Sans" letter-spacing="1">WEBCAM</text>
+        <text x="212" y="318" fill="rgba(230,0,0,0.7)" font-size="10" font-family="DM Sans" letter-spacing="1">HDMI</text>
+        <text x="456" y="285" fill="rgba(230,0,0,0.7)" font-size="10" font-family="DM Sans" letter-spacing="1">USB-C</text>
+        <text x="602" y="135" fill="rgba(74,222,128,0.7)" font-size="10" font-family="DM Sans" letter-spacing="1">HDMI</text>
+        <text x="602" y="298" fill="rgba(96,165,250,0.7)" font-size="10" font-family="DM Sans" letter-spacing="1">RTMP</text>
+        <text x="100" y="398" fill="rgba(74,222,128,0.6)" font-size="10" font-family="DM Sans" letter-spacing="1">HDMI</text>
       </svg>
 
       <!-- iPhone (webcam) -->
-      <div class="rig-node" style="left:20px;top:55px;width:150px;height:80px;">
+      <div class="rig-node" style="left:20px;top:40px;width:150px;height:80px;">
         <div class="node-icon">📱</div>
         <div class="node-name">iPhone</div>
         <div class="node-sub">Webcam Source</div>
@@ -92,7 +93,7 @@
       </div>
 
       <!-- PS5 / PC -->
-      <div class="rig-node" style="left:20px;top:275px;width:150px;height:90px;">
+      <div class="rig-node" style="left:20px;top:280px;width:150px;height:90px;">
         <div class="node-icon">🎮</div>
         <div class="node-name">PS5 / PC</div>
         <div class="node-sub">Gaming Source</div>
@@ -100,26 +101,26 @@
       </div>
 
       <!-- Monitor 2 -->
-      <div class="rig-node output" style="left:200px;top:390px;width:160px;height:70px;">
+      <div class="rig-node output" style="left:20px;top:415px;width:160px;height:75px;">
         <div class="node-icon">🖥️</div>
         <div class="node-name">Monitor 2</div>
         <div class="node-sub">Gaming Display</div>
       </div>
 
-      <!-- Elgato 4K X (capture card) -->
-      <div class="rig-node" style="left:195px;top:245px;width:155px;height:85px;">
-        <div class="node-icon">📹</div>
-        <div class="node-name">Elgato 4K X</div>
-        <div class="node-sub">Capture Card</div>
-        <div class="node-badge badge-red">4K Passthrough</div>
-      </div>
-
       <!-- MacBook (hub) -->
-      <div class="rig-node hub" style="left:360px;top:160px;width:185px;height:115px;">
+      <div class="rig-node hub" style="left:360px;top:150px;width:185px;height:115px;">
         <div class="node-icon">💻</div>
         <div class="node-name">MacBook Pro</div>
         <div class="node-sub">OBS Studio</div>
         <div class="node-badge badge-red">Streaming Engine</div>
+      </div>
+
+      <!-- Elgato 4K X — below MacBook -->
+      <div class="rig-node" style="left:360px;top:300px;width:155px;height:80px;">
+        <div class="node-icon">📹</div>
+        <div class="node-name">Elgato 4K X</div>
+        <div class="node-sub">Capture Card</div>
+        <div class="node-badge badge-red">4K Passthrough</div>
       </div>
 
       <!-- Monitor 1 -->

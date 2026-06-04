@@ -4,9 +4,11 @@ addEventListener('fetch', event => {
 
 function resizeAmazonImage(url, size = 300) {
   if (!url) return url
-  // Only images/I/ CDN URLs support size modifiers; images/P/ does not
   if (!url.includes('/images/I/')) return url
-  return url.replace(/\.(jpg|png|webp)(\?.*)?$/i, `._SL${size}_.$1`)
+  // Strip any existing modifier chain (e.g. ._SX385_. or ._AC_SL1500_.) then add desired size.
+  // Without stripping first, stacking modifiers produces invalid URLs.
+  const stripped = url.replace(/(\._[^.]+_)+\.(jpg|png|webp)(\?.*)?$/i, '.$2')
+  return stripped.replace(/\.(jpg|png|webp)(\?.*)?$/i, `._SL${size}_.$1`)
 }
 
 async function handleRequest(event) {
