@@ -2,14 +2,6 @@ addEventListener('fetch', event => {
   event.respondWith(handleRequest(event))
 })
 
-function resizeAmazonImage(url, size = 300) {
-  if (!url) return url
-  if (!url.includes('/images/I/')) return url
-  // Strip any existing modifier chain (e.g. ._SX385_. or ._AC_SL1500_.) then add desired size.
-  // Without stripping first, stacking modifiers produces invalid URLs.
-  const stripped = url.replace(/(\._[^.]+_)+\.(jpg|png|webp)(\?.*)?$/i, '.$2')
-  return stripped.replace(/\.(jpg|png|webp)(\?.*)?$/i, `._SL${size}_.$1`)
-}
 
 async function handleRequest(event) {
   const request = event.request
@@ -83,8 +75,6 @@ async function handleRequest(event) {
     if (!image && asin) {
       image = `https://images-na.ssl-images-amazon.com/images/P/${asin}.jpg`
     }
-
-    image = resizeAmazonImage(image, 300)
 
     const titleMatch = html.match(/<title>([^<]+)<\/title>/)
     const title = titleMatch ? titleMatch[1].trim() : null
